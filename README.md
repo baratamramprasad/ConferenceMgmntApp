@@ -7,6 +7,6 @@
 ## cd target
 ## java - jar ConferenceTrackMgmntApp-0.0.1-SNAPSHOT <path of input file> >> output.txt
 ## to see the output file with logs- disable log by
-#### Logger.java  change the Logger_ON to true
+####  inLogger.java  Change the Logger_ON to true
 
 

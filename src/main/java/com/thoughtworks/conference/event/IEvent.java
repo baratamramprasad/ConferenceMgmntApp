@@ -25,7 +25,7 @@ public interface IEvent {
 	public int getDuration();
 	
 	/**
-	 * gets the booked duration of the event in minutes.
+	 * gets the session booked duration of the event in minutes.
 	 * @return int as duration  in minutes 
 	 */
 	public int getBookedDuration();

@@ -20,7 +20,7 @@ public class ConsoleOutputProceesorTest  {
 	@Before
 	public void setUp() throws Exception {
 	
-		outputProcccesor = new ConsoleOutputProceesor("10:00","12:00",60);
+		outputProcccesor = new ConsoleOutputProceesor("10:00",60);
 
 	}
 

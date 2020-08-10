@@ -30,7 +30,7 @@ public class EndToEndTestCase {
 		
 		ArrayList<ConferenceTrack<ConferenceSession<IEvent>>> trackList = eventScheduler
 				.schedule(eventModel.getEventList());
-		ConsoleOutputProceesor consolOutput = new ConsoleOutputProceesor("09:00", "12:00", 60);
+		ConsoleOutputProceesor consolOutput = new ConsoleOutputProceesor("09:00", 60);
 		consolOutput.displaySchedule(trackList);
 		if (Logger.LOGGER_ON) {
 			Logger.printLog("EndToEndTestCase", "testConferenceTrackMgmtApp", "ended ...");

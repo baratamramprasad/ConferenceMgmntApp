@@ -15,7 +15,7 @@ import com.thoughtworks.conference.track.ConferenceSession;
 import com.thoughtworks.conference.track.ConferenceTrack;
 
 /**
- * It prints the scedule of informatio in the console.All the time units are
+ * It prints the schedule of information in the console.All the time units are
  * considered as minutes
  * 
  * @author Baratamr
@@ -24,14 +24,11 @@ import com.thoughtworks.conference.track.ConferenceTrack;
 public class ConsoleOutputProceesor implements
 		IOutputProcessor<ConferenceTrack<ConferenceSession<IEvent>>> {
 
-	private int trackID = 0;
+	private int trackID = 1;
 	/**
 	 * default start time of the schedule in the day.
 	 */
 	private String dayStartTime = "09:00";
-
-	@SuppressWarnings("unused")
-	private String lunchTime = "12:00";
 
 	private int lunchBreakDuration = 60;
 
@@ -40,10 +37,8 @@ public class ConsoleOutputProceesor implements
 	 */
 	private Calendar calender = null;
 
-	public ConsoleOutputProceesor(String startTime, String lunchTime,
-			int lunchBreakDuration) {
+	public ConsoleOutputProceesor(String startTime, int lunchBreakDuration) {
 		this.dayStartTime = startTime;
-		this.lunchTime = lunchTime;
 		this.lunchBreakDuration = lunchBreakDuration;
 	}
 
@@ -77,7 +72,6 @@ public class ConsoleOutputProceesor implements
 		Date date;
 		try {
 			date = dateFormat.parse(dayStartTime);
-			// previouseEventStartTime = date;
 		} catch (ParseException e) {
 			throw new ConferenceEventException(
 					ConferenceEventException.OUTPUT_PROCESS_EXCEPTION,

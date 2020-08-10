@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import com.thoughtworks.conference.exception.ConferenceEventException;
 
 /**
- * It processes the sceduled event list and then creates the out put
+ * It processes the scheduled event list and then creates the out put
  * @author Baratamr
  *
  * @param <E>

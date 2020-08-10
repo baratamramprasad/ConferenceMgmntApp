@@ -15,8 +15,8 @@ import com.thoughtworks.conference.exception.ConferenceEventException;
 import com.thoughtworks.logger.Logger;
 
 public class InputProcessorTest{
-	InputProcessor inputProcessor = null;
-	EventModel eventModel =null;
+	private InputProcessor inputProcessor = null;
+	private EventModel eventModel =null;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -35,11 +35,7 @@ public class InputProcessorTest{
 		inputProcessor = null;
 	}
 	
-	@Test
-	public void testWorkSpace() {
 	
-		Logger.printLog(this, "testWorkSpace", "testing the eclipse setup for junit");
-	}
 	
 	@Test
 	public void testProcessInputFile() throws ConferenceEventException, FileNotFoundException {

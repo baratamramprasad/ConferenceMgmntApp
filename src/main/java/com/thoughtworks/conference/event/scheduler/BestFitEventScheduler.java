@@ -19,7 +19,7 @@ import com.thoughtworks.logger.Logger;
  * sublist. In case,it does not find the subset of the events that are perfectly
  * fit in to session, it tries to get sub set of events which fits best i.e sub
  * set of events whose sum of event duration is nearly equal to session duration
- * 
+ * i.e BestFitEventList
  * 
  * @author Baratamr
  * 
@@ -31,14 +31,14 @@ public class BestFitEventScheduler implements IEventScheduler<IEvent, Conference
 	 */
 	private final int FIRST_SESSION_DURATION = 180;
 	/**
-	 * second session is after lunch break and before maintainance time
+	 * second session is after lunch break and before maintenance time
 	 */
 	private final int SECOND_SESSION_DURATION = 240;
 
 	/**
 	 * while finding the sublist of events which will fit in Session exactly,in
 	 * getperfectEventList method, we will keep tract of events which can occupy
-	 * into Session with minimal left over time. i.e Diffrence of Session time and
+	 * into Session with minimal left over time. i.e Difference of Session time and
 	 * sum of the Events duration in bestFitEventList is minimal.It is maintained by
 	 * smallestRemainingTimeDuration
 	 */
@@ -183,17 +183,17 @@ public class BestFitEventScheduler implements IEventScheduler<IEvent, Conference
 	 * between the session duration and sum of event duration of the sublist is
 	 * minimal.this cached sublist will be used as best-fit event list.This is
 	 * bestFitEventList which will be used as secondary case when we do not find
-	 * bestfiteventlist
+	 * bestfiteventlist.while finding the perfect eventlist,it also builds the BestFitEventList.
 	 * 
 	 * @param startIndex               index of the events in the eventList.It is
 	 *                                 initially set as 0;
 	 * @param eventList                list of the events to be scheduled
 	 * @param remainingSessionDuration time left in the session as scheduling is
 	 *                                 proceeded i.e the events are occupied in
-	 *                                 session initialy it is set as
+	 *                                 session initially it is set as
 	 *                                 SessionDuration.
 	 * @param targetEventList          sublist of the events that are occupied in
-	 *                                 session during sorting
+	 *                                 session during recursive call of finding event list
 	 * @return list of the events whose sum of durations is equal to session
 	 *         duration.
 	 */
@@ -215,19 +215,10 @@ public class BestFitEventScheduler implements IEventScheduler<IEvent, Conference
 		}
 
 		ArrayList<IEvent> returnList = new ArrayList<IEvent>();
-		if (smallestRemainingTimeDuration == -1) {
-			smallestRemainingTimeDuration = remainingSessionDuration;
-			bestFitEventList = new ArrayList<IEvent>();
-		}
-		// fill the BestFitEventList when we are trying to get perfect list
-		if (smallestRemainingTimeDuration > remainingSessionDuration) {
-			smallestRemainingTimeDuration = remainingSessionDuration;
-			bestFitEventList.clear();
-			bestFitEventList.addAll(targetEventList);
-			
-		}
+		// This fills the BestFiteventlist to be used in case the perfect event list is not found.
+		fillBestFitEventList(remainingSessionDuration, targetEventList);
 
-		// return list
+		// exit condition 
 		if (startIndex >= eventList.size() || remainingSessionDuration == 0 || eventList.size() == 0) {
 
 			return returnList;
@@ -258,7 +249,7 @@ public class BestFitEventScheduler implements IEventScheduler<IEvent, Conference
 			if (Logger.TRACE_ON) {
 				Logger.printLog("BestFitEventScheduler", "getPerfectSubEventList", "subList :" + subList.size());
 			}
-			// if perfectList is not found,then iterate further in eventList
+			// if perfectList is not found in recursive call ,then iterate further in eventList
 			if (subList.size() > 0) {
 				returnList.addAll(subList);
 				eventList.removeAll(subList);
@@ -274,6 +265,25 @@ public class BestFitEventScheduler implements IEventScheduler<IEvent, Conference
 			Logger.printLog("BestFitEventScheduler", "getPerfectSubEventList", "returnList :" + returnList.size());
 		}
 		return returnList;
+	}
+
+	/**
+	 * fills the bestfitlist
+	 * @param remainingSessionDuration
+	 * @param targetEventList
+	 */
+	private void fillBestFitEventList(int remainingSessionDuration, ArrayList<IEvent> targetEventList) {
+		if (smallestRemainingTimeDuration == -1) {
+			smallestRemainingTimeDuration = remainingSessionDuration;
+			bestFitEventList = new ArrayList<IEvent>();
+		}
+		// fill the BestFitEventList when we are trying to get perfect list
+		if (smallestRemainingTimeDuration > remainingSessionDuration) {
+			smallestRemainingTimeDuration = remainingSessionDuration;
+			bestFitEventList.clear();
+			bestFitEventList.addAll(targetEventList);
+			
+		}
 	}
 
 }

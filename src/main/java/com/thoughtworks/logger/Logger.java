@@ -19,7 +19,7 @@ public class Logger {
 	 * This value can set set true to get the logs.
 	 * in debug mode this attribute is set true 
 	 */
-	public static boolean LOGGER_ON = true;
+	public static boolean LOGGER_ON = false;
 	
 	
 	/**

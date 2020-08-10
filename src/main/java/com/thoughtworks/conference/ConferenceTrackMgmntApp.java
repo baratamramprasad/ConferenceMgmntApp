@@ -7,7 +7,6 @@ import com.thoughtworks.conference.event.EventModel;
 import com.thoughtworks.conference.event.IEvent;
 import com.thoughtworks.conference.event.scheduler.BestFitEventScheduler;
 import com.thoughtworks.conference.exception.ConferenceEventException;
-import com.thoughtworks.conference.exception.GenericExceptionHandler;
 import com.thoughtworks.conference.input.InputProcessor;
 import com.thoughtworks.conference.output.ConsoleOutputProceesor;
 import com.thoughtworks.conference.track.ConferenceSession;
@@ -55,11 +54,11 @@ public class ConferenceTrackMgmntApp {
 			}
 			System.out.println("please wait...Event Scheduling started");
 			ArrayList<ConferenceTrack<ConferenceSession<IEvent>>> trackList = eventScheduler.schedule(eventModel.getEventList());
-			ConsoleOutputProceesor consolOutput = new ConsoleOutputProceesor("09:00","12:00",60);
+			ConsoleOutputProceesor consolOutput = new ConsoleOutputProceesor("09:00",60);
 			System.out.println("Event Scheduling done...");
 			consolOutput.displaySchedule(trackList);
 		} catch (ConferenceEventException e) {
-			GenericExceptionHandler.handleException(e, true);
+			e.printStackTrace();
 			System.out.println("due to input process error,App exiting ...");
 			System.exit(1);
 		}
